@@ -39,7 +39,7 @@ Builds the two inputs that `run_ordinal_regression.py` consumes, starting from r
 1. For each sample, reads `NEST_PDAC_<sample>_manualDB_thresholded.csv` from `--nest-dir`.
 2. Builds an LR pair name as `<ligand>-<receptor>`, prefixes each spot barcode with the sample ID, and counts the number of interactions in which each (spot, LR pair) appears as either sender or receiver. *Each interaction therefore contributes a count of 1 to the sending spot and a count of 1 to the receiving spot for that LR pair* — matching the upstream notebook's semantics.
 3. Pivots the long-format counts into a spot × LR-pair matrix.
-4. Loads the AnnData file and joins per-spot metadata (trajectory label, morphology, coarse annotation, etc.) onto the matrix's barcode index. Falls back to a plain-barcode lookup if the AnnData barcodes don't carry the sample prefix.
+4. Loads the adata and joins per-spot metadata (trajectory label, morphology, coarse annotation, etc.) onto the matrix's barcode index. Falls back to a plain-barcode lookup if the adata barcodes don't carry the sample prefix.
 5. Computes per-spot summary statistics: total LR count, LR-pair richness, Hill number of order 1, and normalized Hill.
 6. Assigns each spot a tumour stage (Early / Intermediate / Late) based on the coarse pathologist annotation and the predicted non-glandular probability. Spots not annotated as Tumour get `Non-tumour`; spots with a missing probability get `NaN`.
 7. Writes a "raw" pair of outputs at the top of `--outdir`, then writes one filtered pair per condition under `--outdir/<condition>/`.
@@ -48,7 +48,7 @@ Builds the two inputs that `run_ordinal_regression.py` consumes, starting from r
 
 The script needs at least: `from_cell`, `to_cell`, `ligand`, `receptor`. Other columns (`edge_rank`, `component`, `attention_score`, etc.) are ignored.
 
-### Required AnnData columns
+### Required adata columns
 
 Defaults match the upstream notebook config:
 
