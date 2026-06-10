@@ -5,7 +5,7 @@ This pipeline includes two main scripts:
 1. **`build_spot_lr_inputs.py`** — builds the spot × LR count matrix and per-spot metadata from raw CellNEST output CSVs and an AnnData file.
 2. **`run_ordinal_regression.py`** — fits the ordinal regression on the outputs of step 1.
 
-The two scripts together reproduce the trajectory-classification analysis: from `NEST_PDAC_<sample>_manualDB_thresholded.csv` files all the way to coefficient tables, threshold tables, and cross-validation accuracy.
+** This script takes adata provided by Deisha as input
 
 ## Quick start example:
 
@@ -108,7 +108,7 @@ The per-condition matrix differs from the raw one in two ways: (1) LR pairs with
 
 Predicts the ordered tradeSeq trajectory cluster (`Low < Intermediate < High`) from per-spot ligand–receptor (LR) interaction counts using a proportional-odds (cumulative-logit) ordinal regression.
 
-### What it does
+### What this pipeline does
 
 1. Loads a per-spot LR count matrix and a per-spot metadata table (the outputs of `build_spot_lr_inputs.py`, both indexed by barcode).
 2. Restricts to spots with a trajectory label in `{Low, Intermediate, High}` (drops `Other` and `NaN`).
